@@ -1,8 +1,8 @@
-# YOCTO EC2 UTILS
+# YOCTO EC2
 
-A project with some tools that help embedded linux developer build linux image with Yocto on EC2.
+A project with some tools that may help embedded linux developers build linux image with Yocto on EC2.
 
-The idea we may select a very cool EC2 with 16 cores and 32 GB RAM, this cost us an hour for a build with ~$0.4 hour. We only start the EC2 once we start building the linux image and stop this once we are done. So, the EC2 does not cost us much than $30-$40 a month. it's cheaper than you invest super desktop to build the code, plus utilities bill and cooler as well.
+The idea we may select a very cool EC2 with 16 cores and 32 GB RAM, this cost us ~$0.4 an hour for a build. We only run the EC2 once we start building the linux image and stop this once we are done. So, the EC2 does not cost us more than $30-$40 a month. it's cheaper than you invest super desktop to build the code, plus utilities bill and cooler as well.
 
 ### THE CURRENT VERSION IS ONLY SUPPORT NXP iMX SOURCE CODE
 
@@ -21,6 +21,7 @@ Clone your code to your EC2
 Start EC2, build, copy image and Stop EC2
 
 ```bash
+pip install -e .
 yocto-ec2 build --instance-id=<instance-id> --project-root=<project-path> --DISTRO=<distro> --MACHINE=<machine> --IMAGE=<image>
 
 For example:
