@@ -11,6 +11,7 @@ ec2 = boto3.client('ec2')
 
 logger = logging.getLogger(__name__)
 
+
 @click.group()
 def cli():
     pass
@@ -25,6 +26,8 @@ def cli():
 @click.option('--local', default='./', help='images file destination', metavar='<string>')
 def build(instance_id, project_root, distro, machine, image, local):
     try:
+        project_root = project_root.rstrip('\\')
+
         ec2_instance = start_ec2(instance_id)
 
         host = ec2_instance.public_ip_address
@@ -35,7 +38,7 @@ def build(instance_id, project_root, distro, machine, image, local):
         click.secho("Verifying connection to host", fg='white', bold=True)
         verify_connection(con)
         build_yocto(con=con, project_root=project_root, distro=distro, machine=machine, image=image)
-        download_linux_images(con, local, image)
+        download_linux_images(con=con, project_root=project_root, image=image, machine=machine, local=local)
 
         stop_ec2(instance_id)
 
@@ -58,10 +61,12 @@ def build_yocto(con, project_root, distro, machine, image):
     return res
 
 
-def download_linux_images(con, local, image):
-    con.run('cd {}'.format('./tmp/deploy/images'))
+def download_linux_images(con, project_root, image, machine, local):
     click.secho('Download image...')
-    con.get('{}.sdcard.bz2'.format(image), local)
+    image_file = '{}-{}.sdcard.bz2'.format(image, machine)
+    image_path = '{}/build/tmp/deploy/images/{}/{}'.format(project_root, machine, image_file)
+
+    con.get('{}'.format(image_path), '{}/{}'.format(local, image_file))
 
 
 def start_ec2(instance_id):
@@ -82,8 +87,6 @@ def start_ec2(instance_id):
 
 def stop_ec2(instance_id):
     click.secho('Stop your EC2: {} ...'.format(instance_id))
-
-    # Do a dryrun first to verify permissions
     ec2.stop_instances(InstanceIds=[instance_id], DryRun=False)
     waiter = ec2.get_waiter('instance_stopped')
     click.secho('Waiting for EC2 {} stopping'.format(instance_id))
