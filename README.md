@@ -7,8 +7,23 @@ The idea we may select a very cool EC2 with 16 cores and 32 GB RAM, this cost us
 ### THE CURRENT VERSION IS ONLY SUPPORT NXP iMX SOURCE CODE
 
 ## Setup
-1. Create EC2 instance: c5.4xlarge and ELB 120GB
+1. Create EC2 instance: 
+    - Type: c5.4xlarge and ESB 120GB
+    - OS: Ubuntu Server 18.04
+    
+    Note: Use ubuntu user for everything.
+
 2. Add your ssh public key to the EC2
+
+    - Copy your public key
+        ```bash
+        ssh-keygen
+        cat ~/.ssh/id_rsa.pub | pbcopy
+        ```
+    - Paste the key to EC2
+        ```bash
+        vim .ssh/authorized_keys
+        ```
 
 ## Clone source code and initialize build environment
 
