@@ -96,4 +96,6 @@ wheels
 *.pem
 
 .idea
-.bz2
+
+# Ignore zip files
+*.bz2
