@@ -96,3 +96,4 @@ wheels
 *.pem
 
 .idea
+.bz2
