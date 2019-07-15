@@ -65,8 +65,9 @@ def download_linux_images(con, project_root, image, machine, local):
     click.secho('Download image...')
     image_file = '{}-{}.sdcard.bz2'.format(image, machine)
     image_path = '{}/build/tmp/deploy/images/{}/{}'.format(project_root, machine, image_file)
-
-    con.get('{}'.format(image_path), '{}/{}'.format(local, image_file))
+    local_file = '{}/{}'.format(local, image_file)
+    con.get('{}'.format(image_path), '{}'.format(local_file))
+    click.secho('You can checkout the image at {}'.format(local_file))
 
 
 def start_ec2(instance_id):
