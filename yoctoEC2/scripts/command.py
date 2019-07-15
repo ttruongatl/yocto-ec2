@@ -39,15 +39,11 @@ def build(instance_id, project_root, distro, machine, image, local):
         verify_connection(con)
         build_yocto(con=con, project_root=project_root, distro=distro, machine=machine, image=image)
         download_linux_images(con=con, project_root=project_root, image=image, machine=machine, local=local)
-
-        stop_ec2(instance_id)
-
     except Exception as exc:
         click.secho("{}".format(exc), fg='red', bold=True)
-        stop_ec2(instance_id)
-        sys.exit(1)
     except KeyboardInterrupt as exc:
         click.secho("Oops. Good bye.".format(exc), fg='green', bold=True)
+    finally:
         stop_ec2(instance_id)
         sys.exit(1)
 
