@@ -99,3 +99,4 @@ wheels
 
 # Ignore zip files
 *.bz2
+*.sdcard
