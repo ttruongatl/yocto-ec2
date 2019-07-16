@@ -7,10 +7,12 @@ The idea we may select a very cool EC2 with 16 cores and 32 GB RAM, this cost us
 ### THE CURRENT VERSION IS ONLY SUPPORT NXP iMX SOURCE CODE
 
 ## Setup
-1. Create EC2 instance: 
+
+1. Create EC2 instance:
+
     - Type: c5.4xlarge and ESB 120GB
     - OS: Ubuntu Server 18.04
-    
+
     Note: Use ubuntu user for everything.
 
 2. Add your ssh public key to the EC2
@@ -35,11 +37,9 @@ Clone your code to your EC2
 
 Start EC2, build, copy image and Stop EC2
 
-```bash
-pip install -e .
-yocto-ec2 build --instance-id=<instance-id> --project-root=<project-path> --DISTRO=<distro> --MACHINE=<machine> --IMAGE=<image>
+`yocto-ec2 build --instance-id=<instance-id> --project-root=<project-path> --DISTRO=<distro> --MACHINE=<machine> --IMAGE=<image>`
 
-For example:
- 
+```bash
+pip install yocto-ec2
 yocto-ec2 build --instance-id=i-12345678 --project-root=/home/ubuntu/Workspace/iMX6ULEVK/ --DISTRO=fsl-imx-fb --MACHINE=imx6ulevk --IMAGE=core-image-base
 ```
