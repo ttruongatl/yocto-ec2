@@ -3,7 +3,7 @@
   
 A project with some tools that may help embedded linux developers build linux image with Yocto on EC2.  
   
-The idea we may select a very cool computer with **16 cores** and **32 GB RAM**, this cost us ~$0.4 an hour for a build, it's a EC2 in AWS. We only run the EC2 once we start building the linux image and stop this once we are done. So, the EC2 does not cost us more than **$30-$40** a month, ~$400 a year. It's cheaper than you invest super desktop (**over $1100**) to build the code, plus utility bill and cooler as well.  
+The idea we may select a very cool computer with **16 cores** and **32 GB RAM**, this cost us ~$0.4 an hour for a build, it's a EC2 in AWS. We only run the EC2 once we start building the linux image and stop this once we are done. **There is NO COST if your EC2 instance is stopped**. So, the EC2 does not cost us more than **$30-$40** a month, ~$400 a year. It's cheaper than you invest super desktop (**over $1100**) to build the code, plus utility bill and cooler as well.  
 
 If you usually take **8 - 10 hours** to build your linux images with your work computer, you may want to enjoy a very fast build with Yocto EC2.
 
