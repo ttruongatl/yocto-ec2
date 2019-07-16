@@ -6,7 +6,7 @@ The idea we may select a very cool EC2 with 16 cores and 32 GB RAM, this cost us
 
 ### THE CURRENT VERSION IS ONLY SUPPORT NXP iMX SOURCE CODE
 
-## Setup
+## Setup AWS
 
 1. Create EC2 instance:
 
@@ -26,6 +26,11 @@ The idea we may select a very cool EC2 with 16 cores and 32 GB RAM, this cost us
         ```bash
         vim .ssh/authorized_keys
         ```
+## Installation
+
+```bash
+pip install yoctoEC2
+```
 
 ## Clone source code and initialize build environment
 
@@ -40,6 +45,5 @@ Start EC2, build, copy image and Stop EC2
 `yocto-ec2 build --instance-id=<instance-id> --project-root=<project-path> --DISTRO=<distro> --MACHINE=<machine> --IMAGE=<image>`
 
 ```bash
-pip install yocto-ec2
 yocto-ec2 build --instance-id=i-12345678 --project-root=/home/ubuntu/Workspace/iMX6ULEVK/ --DISTRO=fsl-imx-fb --MACHINE=imx6ulevk --IMAGE=core-image-base
 ```
