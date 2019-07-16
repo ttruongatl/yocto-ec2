@@ -29,7 +29,7 @@ The idea we may select a very cool EC2 with 16 cores and 32 GB RAM, this cost us
 
 Clone your code to your EC2
 
-#### For current version, I suggest you to initialize build environment and accept EULA by manual first.
+#### For current version, I suggest you to initialize build environment and accept EULA by manual.
 
 ## Yocto build
 
