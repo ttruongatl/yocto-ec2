@@ -4,14 +4,7 @@ A project with some tools that may help embedded linux developers build linux im
 
 The idea we may select a very cool EC2 with 16 cores and 32 GB RAM, this cost us ~$0.4 an hour for a build. We only run the EC2 once we start building the linux image and stop this once we are done. So, the EC2 does not cost us more than $30-$40 a month. it's cheaper than you invest super desktop to build the code, plus utility bill and cooler as well.
 
-```mermaid
-graph TD
-A[Start EC2] -->|Upload your custom build script| B(Run Yocto Build with your script)
-B --> C{Build Result}
-C -->|FAIL| D[Stop EC2]
-C -->|SUCCESS| E[Download Build Image]
-E --> D
-```
+![](https://lh3.googleusercontent.com/m-zRp4JaYeeZuNh1SOQhn8lvYHwt8VTb5TuDTUmC1A1dPxHnTBC9d7o_8gfsr0cv_VwhVdj3csTdpSXRe9ja8LTczSNzR_7P7sukSwHGPHOMmB1UWQUfd7g-RocsxsUWQTJRU_q7tKU=w482-h766-no)
 
 ### THE CURRENT VERSION IS ONLY SUPPORT NXP iMX SOURCE CODE
 
