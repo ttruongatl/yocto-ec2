@@ -34,24 +34,29 @@ Start EC2 —-> Run Yocto build———                                    —�
         ```bash
         vim .ssh/authorized_keys
         ```
+
+## Clone source code and initialize build environment
+
+Clone your code to your EC2
+
 ## Installation
 
 ```bash
 pip install yoctoEC2
 ```
 
-## Clone source code and initialize build environment
 
-Clone your code to your EC2
 
 #### For current version, I suggest you to initialize build environment and accept EULA by manual.
 
 ## Yocto build
+
+You may want to modify build script `build.sh` with your project parameters.
 
 Start EC2, build, copy image and Stop EC2
 
 `yocto-ec2 build --instance-id=<instance-id> --project-root=<project-path> --DISTRO=<distro> --MACHINE=<machine> --IMAGE=<image>`
 
 ```bash
-yocto-ec2 build --instance-id=i-12345678 --project-root=/home/ubuntu/Workspace/iMX6ULEVK/ --DISTRO=fsl-imx-fb --MACHINE=imx6ulevk --IMAGE=core-image-base
+yocto-ec2 build --instance-id=i-12345678  --project-root=/home/ubuntu/Workspace/iMX6ULEVK/ --script-path=./build.sh --sdcard-image=/home/ubuntu/Workspace/iMX6ULEVK/build/tmp/deploy/images/imx6ulevk/core-image-base-imx6ulevk.sdcard.bz2
 ```
