@@ -3,6 +3,7 @@ import time
 import click
 import logging
 import sys
+import os
 
 from .. import core
 import boto3
@@ -20,11 +21,10 @@ def cli():
 @cli.command('build', help='Build Yocto project in EC2')
 @click.option('--instance-id', required=True)
 @click.option('--project-root', required=True)
-@click.option('--DISTRO', required=True)
-@click.option('--MACHINE', required=True)
-@click.option('--IMAGE', required=True)
+@click.option('--script-path', required=True)
+@click.option('--sdcard-image', required=True)
 @click.option('--local', default='./', help='images file destination', metavar='<string>')
-def build(instance_id, project_root, distro, machine, image, local):
+def build(instance_id, project_root, script_path, sdcard_image, local):
     try:
         project_root = project_root.rstrip('\\')
 
@@ -37,8 +37,8 @@ def build(instance_id, project_root, distro, machine, image, local):
         con = _core.con(host)
         click.secho("Verifying connection to host", fg='white', bold=True)
         verify_connection(con)
-        build_yocto(con=con, project_root=project_root, distro=distro, machine=machine, image=image)
-        download_linux_images(con=con, project_root=project_root, image=image, machine=machine, local=local)
+        build_yocto(con=con, project_root=project_root, script_path=script_path)
+        download_linux_images(con=con, local=local, image_file=sdcard_image)
     except Exception as exc:
         click.secho("{}".format(exc), fg='red', bold=True)
     except KeyboardInterrupt as exc:
@@ -48,21 +48,21 @@ def build(instance_id, project_root, distro, machine, image, local):
         sys.exit(1)
 
 
-def build_yocto(con, project_root, distro, machine, image):
+def build_yocto(con, project_root, script_path):
     click.secho('Working Dir: {}'.format(project_root))
     click.secho('Build linux images...')
-    res = con.run(
-        'cd {project_root} && DISTRO={DISTRO} MACHINE={MACHINE} source fsl-setup-release.sh -b build/ && bitbake {LINUX_IMAGE}'.format(
-            project_root=project_root, DISTRO=distro, MACHINE=machine, LINUX_IMAGE=image))
-    return res
+    click.secho('Copy {} to {}'.format(script_path, project_root))
+    con.put(script_path, '{}/build_script.sh'.format(project_root))
+    click.secho('RUN the build script...')
+    con.run(
+        'cd {project_root} && chmod a+x build_script.sh && source build_script.sh'.format(project_root=project_root))
 
 
-def download_linux_images(con, project_root, image, machine, local):
+def download_linux_images(con, local, image_file):
     click.secho('Download image...')
-    image_file = '{}-{}.sdcard.bz2'.format(image, machine)
-    image_path = '{}/build/tmp/deploy/images/{}/{}'.format(project_root, machine, image_file)
-    local_file = '{}/{}'.format(local, image_file)
-    con.get('{}'.format(image_path), '{}'.format(local_file))
+    head, tail = os.path.split(image_file)
+    local_file = '{}/{}'.format(local, tail)
+    con.get('{}'.format(image_file), local_file)
     click.secho('You can checkout the image at {}'.format(local_file))
 
 
