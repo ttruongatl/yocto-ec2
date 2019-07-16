@@ -8,9 +8,7 @@ The idea we may select a very cool computer with **16 cores** and **32 GB RAM**,
 If you usually take **8 - 10 hours** to build your linux images with your work computer, you may want to enjoy a very fast build with Yocto EC2.
 
   
-![](https://lh3.googleusercontent.com/m-zRp4JaYeeZuNh1SOQhn8lvYHwt8VTb5TuDTUmC1A1dPxHnTBC9d7o_8gfsr0cv_VwhVdj3csTdpSXRe9ja8LTczSNzR_7P7sukSwHGPHOMmB1UWQUfd7g-RocsxsUWQTJRU_q7tKU=w482-h766-no)  
-  
-### THE CURRENT VERSION IS ONLY SUPPORT NXP iMX SOURCE CODE  
+![](https://lh3.googleusercontent.com/C6a7PYTqcXImoVVdXW0JQMc00rTbUrP0LIe9P5nvZ_YQdF1Z1vMPX4k9mHvVL9SoqKrweRm0Ua5wYJMAYOoqjIrM0rlrSeyWufubRefiGIMrJBpZQiyzk0YKC9bWmeypSxCT3lSknWLhdClEGNwxEpL7FpZgfFTM5CnvpLNmVYLUZG6eBoAt7fNm73-BzOLOSKChQWh_b-QaJ-HDhPAiZh6iq4vDjk3IHPh5EmlLy_xpkLeAGlRq9tpwG-fiYx3nWXdro7Vp_6_RIHOj7LSqne5vLgqDCH3NFpMk9zbOKLF_8Nkhccm8LD5ImCuw_Ao91pyzCKTsRcuEAkajlhpR0NY1Q_UgBK_25UFe1i5YNsFhqM7YI8Oro1QsfA39c9lh3EMUZmfF1ChG3Kgil4Pr9OVJZu-8w10QaWa2yFwU_Zy04Y8BGjtAIfoOeJKbC_fgas7qCjEJMtDNt65TgBFP6hf9_v7tLN9Jxtb5LLffqTjx2qGULks6YfICgBpnQak9Nf4EGvFxgTioNrOdU5rGzrpBFeyMQVC3e_8Y30dzfPU5gTWOEAUXaM72hRRIugwVSiiKfMSGe6Z2P42aHNgbZg0P6_juH57iSK3F_TkbMYTB7docSrmUUTI7o8ClRb5GTZDdmksygfWnynMFxMxz-Wuxs5pykl-w45BDX9hptSabvkk-DzMDdsJeKMJq3J3__lqVu0QtcZSTyyqLRm0hOhfyrQ=w484-h766-no)  
   
 ## Setup AWS  
   
