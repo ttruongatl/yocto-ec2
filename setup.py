@@ -8,7 +8,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='yoctoEC2',
-    version='0.2.0',
+    version='0.2.1',
     description='A yocto EC2 Python project',
     long_description=long_description,
     url='https://github.com/ttruongatl/yocto-ec2-utils',
