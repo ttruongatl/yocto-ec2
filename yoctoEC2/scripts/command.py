@@ -66,6 +66,18 @@ def download_linux_images(con, local, image_file):
     click.secho('You can checkout the image at {}'.format(local_file))
 
 
+def download_project_tarball(con, local, project_dir):
+    click.secho('Create project tarball...')
+    head, dir_name = os.path.split(project_dir)
+    tar_file = {dir_name}.tar.gz
+    con.run('tar -czvf {tar_file} {project_dir}'.format(tar_file=tar_file, project_dir=project_dir))
+
+    click.secho('Download the tarball...')
+    local_file = '{}/{}'.format(local, tar_file)
+    con.get('{tar_file}'.format(tar_file), local_file)
+    click.secho('Done.')
+
+
 def start_ec2(instance_id):
     click.secho('Start your EC2: {} ...'.format(instance_id))
 
