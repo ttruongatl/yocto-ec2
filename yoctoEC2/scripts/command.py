@@ -20,13 +20,11 @@ def cli():
 
 @cli.command('build', help='Build Yocto project in EC2')
 @click.option('--instance-id', required=True)
-@click.option('--project-root', required=True)
+@click.option('--project-dir', required=True)
 @click.option('--script-path', required=True)
-@click.option('--sdcard-image', required=True)
-@click.option('--local', default='./', help='images file destination', metavar='<string>')
-def build(instance_id, project_root, script_path, sdcard_image, local):
+def build(instance_id, project_dir, script_path):
     try:
-        project_root = project_root.rstrip('\\')
+        project_dir = project_dir.rstrip('\\')
 
         ec2_instance = start_ec2(instance_id)
 
@@ -37,7 +35,29 @@ def build(instance_id, project_root, script_path, sdcard_image, local):
         con = _core.con(host)
         click.secho("Verifying connection to host", fg='white', bold=True)
         verify_connection(con)
-        build_yocto(con=con, project_root=project_root, script_path=script_path)
+        build_yocto(con=con, project_dir=project_dir, script_path=script_path)
+    except Exception as exc:
+        click.secho("{}".format(exc), fg='red', bold=True)
+    except KeyboardInterrupt as exc:
+        click.secho("Oops. Good bye.".format(exc), fg='green', bold=True)
+    finally:
+        stop_ec2(instance_id)
+        sys.exit(1)
+
+
+@cli.command('download-sdcard', help='Download sdcard image from EC2')
+@click.option('--instance-id', required=True)
+@click.option('--sdcard-image', required=True)
+@click.option('--local', default='./', help='images file destination', metavar='<string>')
+def download_project(instance_id, local, sdcard_image):
+    try:
+        ec2_instance = start_ec2(instance_id)
+        host = ec2_instance.public_ip_address
+        click.secho("Your EC2 IP: {}".format(host), fg='white', bold=True)
+        _core = core.Core()
+        con = _core.con(host)
+        click.secho("Verifying connection to host", fg='white', bold=True)
+        verify_connection(con)
         download_linux_images(con=con, local=local, image_file=sdcard_image)
     except Exception as exc:
         click.secho("{}".format(exc), fg='red', bold=True)
@@ -48,8 +68,30 @@ def build(instance_id, project_root, script_path, sdcard_image, local):
         sys.exit(1)
 
 
-def build_yocto(con, project_root, script_path):
-    click.secho('Working Dir: {}'.format(project_root))
+@cli.command('download-project', help='Download project tarball from EC2')
+@click.option('--instance-id', required=True)
+@click.option('--project-dir', required=True)
+@click.option('--local', default='./', help='images file destination', metavar='<string>')
+def download_project(instance_id, project_dir, local):
+    try:
+        project_dir = project_dir.rstrip('\\')
+        ec2_instance = start_ec2(instance_id)
+        host = ec2_instance.public_ip_address
+        click.secho("Your EC2 IP: {}".format(host), fg='white', bold=True)
+        _core = core.Core()
+        con = _core.con(host)
+        click.secho("Verifying connection to host", fg='white', bold=True)
+        verify_connection(con)
+        download_project_tarball(con=con, local=local, project_dir=project_dir)
+    except Exception as exc:
+        click.secho("{}".format(exc), fg='red', bold=True)
+    except KeyboardInterrupt as exc:
+        click.secho("Oops. Good bye.".format(exc), fg='green', bold=True)
+    finally:
+        stop_ec2(instance_id)
+        sys.exit(1)
+
+
 def build_yocto(con, project_dir, script_path):
     click.secho('Working Dir: {}'.format(project_dir))
     click.secho('Build linux images...')
