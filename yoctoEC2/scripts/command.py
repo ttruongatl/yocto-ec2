@@ -50,12 +50,14 @@ def build(instance_id, project_root, script_path, sdcard_image, local):
 
 def build_yocto(con, project_root, script_path):
     click.secho('Working Dir: {}'.format(project_root))
+def build_yocto(con, project_dir, script_path):
+    click.secho('Working Dir: {}'.format(project_dir))
     click.secho('Build linux images...')
-    click.secho('Copy {} to {}'.format(script_path, project_root))
-    con.put(script_path, '{}/build_script.sh'.format(project_root))
+    click.secho('Copy {} to {}'.format(script_path, project_dir))
+    con.put(script_path, '{}/build_script.sh'.format(project_dir))
     click.secho('RUN the build script...')
     con.run(
-        'cd {project_root} && chmod a+x build_script.sh && source build_script.sh'.format(project_root=project_root))
+        'cd {project_dir} && chmod a+x build_script.sh && source build_script.sh'.format(project_dir=project_dir))
 
 
 def download_linux_images(con, local, image_file):
