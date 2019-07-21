@@ -49,7 +49,7 @@ def build(instance_id, project_dir, script_path):
 @click.option('--instance-id', required=True)
 @click.option('--sdcard-image', required=True)
 @click.option('--local', default='./', help='images file destination', metavar='<string>')
-def download_project(instance_id, local, sdcard_image):
+def download_sdcard(instance_id, local, sdcard_image):
     try:
         ec2_instance = start_ec2(instance_id)
         host = ec2_instance.public_ip_address
